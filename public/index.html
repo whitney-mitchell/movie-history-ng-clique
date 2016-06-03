@@ -12,18 +12,19 @@
 			<h1>{{title}}</h1>
 		</section>
 
-		<section class="SearchAPI" ng-controller="SearchAPICtrl">
-			<a href="" title="FindNewMovies" ng-click="searchAPIInput()">Find New Movies</a>
-			<form class="visible" ng-submit="getAPIMovies()" ng-show="showInput">
-				<input type="text" placeholder="Search movies to add to your list" ng-model="movies">
+		<section class="searchAPI" ng-controller="SearchAPICtrl">
+			<a href="" title="findNewMovies" ng-click="searchAPIInput()">Find New Movies</a>
+
+			<form ng-submit="getAPIMovies()" ng-show="showInput">
+				<input type="text" placeholder="Search movies to add to your list" ng-model="APImovies">
 				<input type="submit" ng-click="searchSubmit()">
 			</form>
 			<!-- <article>{{movies | json}}</article> -->
 			<div ng-show="showSearchResults">
-				<p>Title: {{movies.Title}}</p>
-				<p>Year: {{movies.Year}}</p>
-				<p>Actors: {{movies.Actors}}</p>
-				<p>Plot: {{movies.Plot}}</p>
+				<p>Title: {{APImovies.Title}}</p>
+				<p>Year: {{APImovies.Year}}</p>
+				<p>Actors: {{APImovies.Actors}}</p>
+				<p>Plot: {{APImovies.Plot}}</p>
 				<label for="rateSelect"> Rate: </label>
 				<select name="ratings" ng-model=rateData.rateSelect>
 					<option ng-repeat="option in rateData.ratings" value="{{option.id}}">{{option.name}}</option>
@@ -34,6 +35,7 @@
 					<input type="checkbox" ng-model="watchData.watched" ng-true-value="'I SEENT IT.'" ng-false-value="'No...No Seent it.'">
 				</label>
 				<p>{{watchData.watched}}</p>
+				<input type="submit" value="Save!" ng-click="saveMovie()">
 			</div>
 		</section>
 
@@ -41,11 +43,21 @@
 
 		<!-- </section> -->
 
-		<section class="ListFavs" ng-controller="FavCtrl">
-			<p>{{favMovies}}</p>
+		<section class="listFavs" ng-controller="ShowFavCtrl">
+		<h1>My Movie List</h1>
+			<div ng-repeat="eachMovie in movieArray" value = {{eachMovie.id}}>
+			<h2>{{eachMovie.Title}}</h2>
+			<button type="submit" ng-click="getMoreInfo(eachMovie)">More Info</button>
+
+				<section ng-show="eachMovie.showMoreInfo">
+				<p>Year: {{eachMovie.Year}}</p>
+				<p>Actors: {{eachMovie.Actors}}</p>
+				<p>Rating: {{eachMovie.Rating}}</p>
+				<p>Watched: {{eachMovie.Watched}}</p>
+				</section>
+			</div>
 		</section>
 	</div>
-
 
 	<script src="/lib/angular/angular.min.js"></script>
 	<script src="/app/main.js"></script>
