@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<div ng-app="movies">
+		<section ng-controller="TitleCtrl">
+			<h1>{{title}}</h1>
+		</section>
+
+		<section class="SearchAPI" ng-controller="SearchAPICtrl">
+			<a href="" title="FindNewMovies" ng-click="searchAPIInput()">Find New Movies</a>
+			<form class="visible" ng-submit="getAPIMovies()" ng-show="showInput">
+				<input type="text" placeholder="Search movies to add to your list" ng-model="movies">
+				<input type="submit" ng-click="searchSubmit()">
+			</form>
+			<!-- <article>{{movies | json}}</article> -->
+			<div ng-show="showSearchResults">
+				<p>Title: {{movies.Title}}</p>
+				<p>Year: {{movies.Year}}</p>
+				<p>Actors: {{movies.Actors}}</p>
+				<p>Plot: {{movies.Plot}}</p>
+				<label for="rateSelect"> Rate: </label>
+				<select name="ratings" ng-model=rateData.rateSelect>
+					<option ng-repeat="option in rateData.ratings" value="{{option.id}}">{{option.name}}</option>
+				</select>
+				<p>Rating: {{rateData.rateSelect}}</p>
+
+				<label>Watched:
+					<input type="checkbox" ng-model="watchData.watched" ng-true-value="'I SEENT IT.'" ng-false-value="'No...No Seent it.'">
+				</label>
+				<p>{{watchData.watched}}</p>
+			</div>
+		</section>
+
+		<!-- <section class="SearchFavs" ng-controller="SearchFavCtrl"> -->
+
+		<!-- </section> -->
+
+		<section class="ListFavs" ng-controller="FavCtrl">
+			<p>{{favMovies}}</p>
+		</section>
+	</div>
+
+
+	<script src="/lib/angular/angular.min.js"></script>
+	<script src="/app/main.js"></script>
+	<script src="/app/constants.js"></script>
+	<script src="/app/controllers.js"></script>
+	<script src="/app/factories.js"></script>
+
+</body>
+</html>
